@@ -10,20 +10,7 @@
   <h1>Testovací stránka QuixEvent</h1>
 <body>
   <div align="center">
-    <form id='upload_form' action='https://api.fotomasterltd.net/photo-mosaic-booth/user_upload.php' method='post' enctype='multipart/form-data'> 
-Select image to upload: 
-    <input type='file' name='Filedata' id='Filedata'> 
- Email: 
-    <input type='email' name='email'> 
- Message: 
-<textarea name='message' form='upload_form'></textarea> 
-<input type='submit' value='Send' name='submit'> 
-<input type='hidden' name='pid' value='1236199'> 
-<input type='hidden' name='eventName' value='1634560431770-HAVEL_TEST01'> 
-<input type='hidden' name='weakPassword' value='fotomaster_browse'> 
-<input type='hidden' name='redirect_url' value='https://fotomasterltd.net'> 
-    </form>
-    
+    <iframe width='560px' height='560px' style='border:none;' src='https://api.fotomasterltd.net/photo-mosaic-booth/interactive//embed/index.php?pid=1236199&eventName=1634560431770-HAVEL_TEST01&isEmail=true&isMessage=true&redirectUrl=https%3A//fotomasterltd.net' />
     <iframe style='padding:200px;margin:0px;height:100%;width:100%;border: none;' id='inlineFrameExample' title='Inline Frame Example' src='https://api.fotomasterltd.net/photo-mosaic-booth/interactive//mosaic.php?pid=1236199&event_name=1634560431770-HAVEL_TEST01&columns=44&rows=48&max_tile_size=600&useOrig=true' />
 #<iframe src="https://vimeo.com/event/352824/embed" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
 </body>
