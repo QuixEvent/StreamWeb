@@ -59,7 +59,7 @@
                 const startPlayback = () => {
                     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
                         method: 'PUT',
-                        body: JSON.stringify({ uris: ['spotify:playlist:1LEA4MQGWI7iJ2wOj6mX6e?'] }), // Zadej zde správný track nebo playlist
+                        body: JSON.stringify({ uris: ['spotify:playlist:8d4a28c1e4b94629'] }), // Zadej zde správný track nebo playlist
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${token}`
