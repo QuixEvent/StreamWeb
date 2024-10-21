@@ -46,7 +46,13 @@
 
         // Funkce pro spuštění přehrávání MP3
         startBtn.addEventListener('click', () => {
-            audioPlayer.play();
+            // Vytvoří novou interakci pro Safari
+            if (audioPlayer.readyState >= 2) { // Kontrola, zda je soubor načten
+                audioPlayer.play();
+            } else {
+                audioPlayer.load();
+                audioPlayer.play();
+            }
         });
 
         // Funkce pro zastavení přehrávání MP3
@@ -58,3 +64,4 @@
 
 </body>
 </html>
+
