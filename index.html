@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Přehrávání Spotify</title>
+    <title>Přehrávání MP3</title>
     <style>
         body {
             margin: 0;
@@ -29,7 +29,6 @@
         button:hover {
             background-color: #f0f0f0;
         }
-
     </style>
 </head>
 <body>
@@ -37,56 +36,24 @@
     <button id="startBtn">Start</button>
     <button id="stopBtn">Stop</button>
 
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <!-- Element pro přehrávání MP3 -->
+    <audio id="audioPlayer" src="tvuj-soubor.mp3"></audio>
+
     <script>
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQB0Q63lTvy3y5zA6pWAaFwDFnPAEMBReidwpksA2mjftRMBMlYSX-DW9LX7opQ_9cpm856dMx5jwVqmzzkdAJLZSyl3QHSRpJ5w9pGwckrG1adXKSY'; // Sem vlož svůj OAuth token
+        const audioPlayer = document.getElementById('audioPlayer');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
 
-            const player = new Spotify.Player({
-                name: 'Web Player',
-                getOAuthToken: cb => { cb(token); },
-                volume: 0.5
-            });
+        // Funkce pro spuštění přehrávání MP3
+        startBtn.addEventListener('click', () => {
+            audioPlayer.play();
+        });
 
-            // Připojení přehrávače
-            player.connect();
-
-            // Poslouchání událostí přehrávače
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Zařízení je připraveno:', device_id);
-
-                // Funkce pro spuštění playlistu
-                const startPlayback = () => {
-                    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
-                        method: 'PUT',
-                        body: JSON.stringify({ context_uri: 'spotify:playlist:1LEA4MQGWI7iJ2wOj6mX6e?' }), // Zadej zde správný track nebo playlist
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                    });
-                };
-
-                // Funkce pro pozastavení přehrávání
-                const stopPlayback = () => {
-                    fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${device_id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                    });
-                };
-
-                // Přiřazení akcí tlačítkům
-                document.getElementById('startBtn').addEventListener('click', startPlayback);
-                document.getElementById('stopBtn').addEventListener('click', stopPlayback);
-            });
-
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Zařízení není připraveno:', device_id);
-            });
-        };
+        // Funkce pro zastavení přehrávání MP3
+        stopBtn.addEventListener('click', () => {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0; // Nastaví čas na začátek
+        });
     </script>
 
 </body>
