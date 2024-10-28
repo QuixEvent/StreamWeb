@@ -29,19 +29,19 @@
             justify-content: center;
             color: white;
             font-size: 1.2em;
-            transition: background-color 0.5s ease;
+            transition: background-color 0.5s ease, transform 0.3s ease;
             user-select: none;
             cursor: pointer;
         }
 
-        /* QR kód v rohu */
+        /* QR kód v levém horním rohu */
         .qr-code {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             width: 100px;
             height: 100px;
-            background-color: white;
+            background-color: #40e0d0; /* Tyrkysová barva pozadí */
             padding: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -53,7 +53,7 @@
     <!-- Tlačítko uprostřed stránky -->
     <div class="swipe-button" id="swipeButton">Swipe mě</div>
 
-    <!-- Kontejner pro QR kód v pravém horním rohu -->
+    <!-- Kontejner pro QR kód v levém horním rohu -->
     <div class="qr-code" id="qrcode"></div>
 
     <!-- QRCode.js knihovna -->
@@ -63,8 +63,8 @@
         // Inicializace QR kódu s odkazem
         new QRCode(document.getElementById("qrcode"), {
             text: "https://quixevent.github.io/StreamWeb/",
-            width: 100,
-            height: 100
+            width: 90,
+            height: 90
         });
 
         const swipeButton = document.getElementById('swipeButton');
@@ -72,6 +72,7 @@
         // Proměnné pro detekci swipu
         let startY = 0;
         let endY = 0;
+        const swipeDistance = 75;  // Polovina velikosti tlačítka (150px/2)
 
         // Události pro dotykové zařízení
         swipeButton.addEventListener('touchstart', (event) => {
@@ -84,12 +85,19 @@
 
         swipeButton.addEventListener('touchend', () => {
             if (startY > endY) {
-                // Swipe nahoru - barva hnědá
+                // Swipe nahoru - posun nahoru a změna na hnědou
+                swipeButton.style.transform = `translateY(-${swipeDistance}px)`;
                 swipeButton.style.backgroundColor = '#8B4513';
             } else if (startY < endY) {
-                // Swipe dolů - barva žlutá
+                // Swipe dolů - posun dolů a změna na žlutou
+                swipeButton.style.transform = `translateY(${swipeDistance}px)`;
                 swipeButton.style.backgroundColor = '#FFD700';
             }
+
+            // Vrácení do původní pozice po animaci
+            setTimeout(() => {
+                swipeButton.style.transform = 'translateY(0)';
+            }, 300); // Vrácení po 300ms (stejné jako animace `transform`)
         });
     </script>
 
