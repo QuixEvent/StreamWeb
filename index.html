@@ -22,10 +22,11 @@
         .swipe-button {
             width: 150px;
             height: 150px;
-            background-image: url('https://github.com/QuixEvent/StreamWeb/blob/ca7a773ff48514e42d76a47bf85637c2137c2158/assets/iPad_button-OFF.png'); /* Obrázek pro výchozí stav */
+            background-image: url('https://github.com/QuixEvent/StreamWeb/blob/ca7a773ff48514e42d76a47bf85637c2137c2158/assets/iPad_button-OFF.png'); /* Výchozí obrázek */
             background-size: cover;
             background-position: center;
             border-radius: 50%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Jemný stín, aby bylo tlačítko vidět */
             transition: transform 0.3s ease;
             cursor: pointer;
         }
@@ -83,11 +84,11 @@
             if (startY > endY) {
                 // Swipe nahoru - posun nahoru a změna obrázku na obrázek 1
                 swipeButton.style.transform = `translateY(-${swipeDistance}px)`;
-                swipeButton.style.backgroundImage = "url('path/to/image1.png')";
+                swipeButton.style.backgroundImage = "url('https://github.com/QuixEvent/StreamWeb/blob/0693af9a2c4abc6310b5e7cc441cb907dc138ebd/assets/iPad_button-ON.png')";
             } else if (startY < endY) {
                 // Swipe dolů - posun dolů a změna obrázku na obrázek 2
                 swipeButton.style.transform = `translateY(${swipeDistance}px)`;
-                swipeButton.style.backgroundImage = "url('https://github.com/QuixEvent/StreamWeb/blob/0693af9a2c4abc6310b5e7cc441cb907dc138ebd/assets/iPad_button-ON.png')";
+                swipeButton.style.backgroundImage = "url('path/to/image2.png')";
             }
 
             // Vrácení do původní pozice po animaci
