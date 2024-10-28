@@ -29,10 +29,11 @@
         .swipe-button {
             width: 100%;
             height: 100%;
+            background-image: url('assets/iPad_button-OFF.png'); /* Výchozí obrázek pro tlačítko (OFF stav) */
             background-size: cover; /* Pokryje celé tlačítko */
             background-repeat: no-repeat; /* Zabrání opakování obrázku */
             background-position: center; /* Obrázek je zarovnán do středu tlačítka */
-            transition: opacity 0.3s ease; /* Přechod opacity pro crossfade efekt */
+            transition: opacity 0.6s ease; /* Přechod opacity pro crossfade efekt */
             position: absolute; /* Pozice absolutní pro překrývání */
         }
 
@@ -50,6 +51,7 @@
             height: 100px;
             background-color: white;
             padding: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
     </style>
@@ -58,8 +60,8 @@
 
     <!-- Kontejner pro tlačítko -->
     <div class="swipe-button-container">
-        <div class="swipe-button" id="swipeButtonOff" style="background-image: url('assets/iPad_button-OFF.png');"></div>
-        <div class="swipe-button on" id="swipeButtonOn" style="background-image: url('assets/iPad_button-ON.png');"></div>
+        <div class="swipe-button" id="swipeButtonOff"></div>
+        <div class="swipe-button on" id="swipeButtonOn"></div>
     </div>
 
     <!-- Kontejner pro QR kód v levém horním rohu -->
@@ -82,34 +84,31 @@
         // Proměnné pro detekci swipu
         let startY = 0;
         let endY = 0;
-        const swipeDistance = 150;  // Délka swipe pohybu
+        const swipeDistance = 75;  // Polovina velikosti tlačítka (150px/2)
 
         // Události pro dotykové zařízení
         swipeButtonOff.addEventListener('touchstart', (event) => {
             startY = event.touches[0].clientY;
-            console.log('Swipe start:', startY); // Debug log
         });
 
         swipeButtonOff.addEventListener('touchmove', (event) => {
             endY = event.touches[0].clientY;
-            console.log('Swipe move:', endY); // Debug log
         });
 
         swipeButtonOff.addEventListener('touchend', () => {
-            console.log('Swipe end:', startY, endY); // Debug log
             if (startY > endY) {
-                // Swipe nahoru - přepnutí na obrázek "ON"
+                // Swipe nahoru - posun nahoru a přepnutí na obrázek "ON"
+                swipeButtonOff.style.transform = `translateY(-${swipeDistance}px)`;
                 swipeButtonOn.style.opacity = 1; // Zobrazit obrázek "ON"
                 swipeButtonOff.style.opacity = 0; // Skrýt obrázek "OFF"
-                swipeButtonOff.style.transform = 'translateY(-' + swipeDistance + 'px)'; // Posun nahoru
             } else if (startY < endY) {
-                // Swipe dolů - přepnutí na obrázek "OFF"
+                // Swipe dolů - posun dolů a přepnutí na obrázek "OFF"
+                swipeButtonOff.style.transform = `translateY(${swipeDistance}px)`;
                 swipeButtonOff.style.opacity = 1; // Zobrazit obrázek "OFF"
                 swipeButtonOn.style.opacity = 0; // Skrýt obrázek "ON"
-                swipeButtonOff.style.transform = 'translateY(' + swipeDistance + 'px)'; // Posun dolů
             }
 
-            // Vrátit tlačítko do původní pozice
+            // Vrácení do původní pozice po animaci
             setTimeout(() => {
                 swipeButtonOff.style.transform = 'translateY(0)';
                 swipeButtonOn.style.transform = 'translateY(0)';
