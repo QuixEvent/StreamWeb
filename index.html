@@ -32,7 +32,7 @@
             background-size: cover; /* Pokryje celé tlačítko */
             background-repeat: no-repeat; /* Zabrání opakování obrázku */
             background-position: center; /* Obrázek je zarovnán do středu tlačítka */
-            transition: opacity var(--fade-duration, 0.3s) ease; /* Přechod opacity pro crossfade efekt s proměnnou rychlostí */
+            transition: opacity 0.3s ease; /* Přechod opacity pro crossfade efekt */
             position: absolute; /* Pozice absolutní pro překrývání */
         }
 
@@ -85,7 +85,7 @@
         // Proměnné pro detekci swipu
         let startY = 0;
         let endY = 0;
-        const swipeDistance = 75;  // Polovina velikosti tlačítka (150px/2)
+        const swipeDistance = 150;  // Délka swipe pohybu
 
         // Události pro dotykové zařízení
         swipeButtonOff.addEventListener('touchstart', (event) => {
