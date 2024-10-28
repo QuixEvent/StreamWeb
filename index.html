@@ -98,18 +98,18 @@
 
         swipeButtonOff.addEventListener('touchend', () => {
             if (startY > endY) {
-                // Swipe nahoru - posun nahoru a přepnutí na obrázek "ON"
-                swipeButtonOff.style.transform = `translateY(-${swipeDistance}px)`;
+                // Swipe nahoru - přepnutí na obrázek "ON"
                 swipeButtonOn.style.opacity = 1; // Zobrazit obrázek "ON"
                 swipeButtonOff.style.opacity = 0; // Skrýt obrázek "OFF"
+                swipeButtonOff.style.transform = 'translateY(-' + swipeDistance + 'px)'; // Posun nahoru
             } else if (startY < endY) {
-                // Swipe dolů - posun dolů a přepnutí na obrázek "OFF"
-                swipeButtonOff.style.transform = `translateY(${swipeDistance}px)`;
+                // Swipe dolů - přepnutí na obrázek "OFF"
                 swipeButtonOff.style.opacity = 1; // Zobrazit obrázek "OFF"
                 swipeButtonOn.style.opacity = 0; // Skrýt obrázek "ON"
+                swipeButtonOff.style.transform = 'translateY(' + swipeDistance + 'px)'; // Posun dolů
             }
 
-            // Vrácení do původní pozice po animaci
+            // Vrátit tlačítko do původní pozice
             setTimeout(() => {
                 swipeButtonOff.style.transform = 'translateY(0)';
                 swipeButtonOn.style.transform = 'translateY(0)';
