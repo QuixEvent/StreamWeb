@@ -27,8 +27,8 @@
 
         /* Styl pro tlačítko */
         .swipe-button {
-            width: 50%;
-            height: 50%;
+            width: 100%;
+            height: 100%;
             background-size: cover; /* Pokryje celé tlačítko */
             background-repeat: no-repeat; /* Zabrání opakování obrázku */
             background-position: center; /* Obrázek je zarovnán do středu tlačítka */
@@ -69,9 +69,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
-        // Nastavujeme rychlost crossfade přechodu
-        document.documentElement.style.setProperty('--fade-duration', '0.5s'); // Nastavte na požadovanou hodnotu
-
         // Inicializace QR kódu s odkazem
         new QRCode(document.getElementById("qrcode"), {
             text: "https://quixevent.github.io/StreamWeb/",
@@ -90,13 +87,16 @@
         // Události pro dotykové zařízení
         swipeButtonOff.addEventListener('touchstart', (event) => {
             startY = event.touches[0].clientY;
+            console.log('Swipe start:', startY); // Debug log
         });
 
         swipeButtonOff.addEventListener('touchmove', (event) => {
             endY = event.touches[0].clientY;
+            console.log('Swipe move:', endY); // Debug log
         });
 
         swipeButtonOff.addEventListener('touchend', () => {
+            console.log('Swipe end:', startY, endY); // Debug log
             if (startY > endY) {
                 // Swipe nahoru - přepnutí na obrázek "ON"
                 swipeButtonOn.style.opacity = 1; // Zobrazit obrázek "ON"
