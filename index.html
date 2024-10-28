@@ -3,56 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Přehrávání MP3</title>
+    <title>Swipe Tlačítko s QR kódem</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-color: #40E0D0; /* Tyrkysová barva */
+        /* Základní styly pro stránku */
+        body, html {
             display: flex;
-            justify-content: center;
             align-items: center;
-            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
             font-family: Arial, sans-serif;
+            position: relative;
         }
 
-        button {
-            margin: 10px;
-            padding: 15px 30px;
-            font-size: 18px;
-            background-color: #ffffff;
-            border: 2px solid #000;
+        /* Styl pro tlačítko */
+        .swipe-button {
+            width: 150px;
+            height: 150px;
+            background-color: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            transition: background-color 0.5s ease;
+            user-select: none;
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #f0f0f0;
+        /* QR kód v rohu */
+        .qr-code {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
 
-    <button id="startBtn">Start</button>
-    <button id="stopBtn">Stop</button>
+    <!-- Tlačítko uprostřed stránky -->
+    <div class="swipe-button" id="swipeButton">Swipe mě</div>
 
-    <!-- Element pro přehrávání MP3 -->
-    <audio id="audioPlayer" src="https://github.com/QuixEvent/StreamWeb/blob/92c22c461438b1e19498a94ad57b6e2f70d2b1a9/assets/01%20-%20Watch%20Your%20Step.ogg"></audio>
+    <!-- Kontejner pro QR kód v pravém horním rohu -->
+    <div class="qr-code" id="qrcode"></div>
+
+    <!-- QRCode.js knihovna -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
-        const audioPlayer = document.getElementById('audioPlayer');
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-
-        // Funkce pro spuštění přehrávání MP3
-        startBtn.addEventListener('click', () => {
-            audioPlayer.play();
+        // Inicializace QR kódu s odkazem
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://quixevent.github.io/StreamWeb/",
+            width: 100,
+            height: 100
         });
 
-        // Funkce pro zastavení přehrávání MP3
-        stopBtn.addEventListener('click', () => {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0; // Nastaví čas na začátek
+        const swipeButton = document.getElementById('swipeButton');
+
+        // Proměnné pro detekci swipu
+        let startY = 0;
+        let endY = 0;
+
+        // Události pro dotykové zařízení
+        swipeButton.addEventListener('touchstart', (event) => {
+            startY = event.touches[0].clientY;
+        });
+
+        swipeButton.addEventListener('touchmove', (event) => {
+            endY = event.touches[0].clientY;
+        });
+
+        swipeButton.addEventListener('touchend', () => {
+            if (startY > endY) {
+                // Swipe nahoru - barva hnědá
+                swipeButton.style.backgroundColor = '#8B4513';
+            } else if (startY < endY) {
+                // Swipe dolů - barva žlutá
+                swipeButton.style.backgroundColor = '#FFD700';
+            }
         });
     </script>
 
