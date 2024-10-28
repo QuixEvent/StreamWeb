@@ -29,7 +29,6 @@
         .swipe-button {
             width: 100%;
             height: 100%;
-            background-image: url('assets/iPad_button-OFF.png'); /* Výchozí obrázek pro tlačítko (OFF stav) */
             background-size: cover; /* Pokryje celé tlačítko */
             background-repeat: no-repeat; /* Zabrání opakování obrázku */
             background-position: center; /* Obrázek je zarovnán do středu tlačítka */
@@ -59,8 +58,8 @@
 
     <!-- Kontejner pro tlačítko -->
     <div class="swipe-button-container">
-        <div class="swipe-button" id="swipeButtonOff"></div>
-        <div class="swipe-button on" id="swipeButtonOn"></div>
+        <div class="swipe-button" id="swipeButtonOff" style="background-image: url('assets/iPad_button-OFF.png');"></div>
+        <div class="swipe-button on" id="swipeButtonOn" style="background-image: url('assets/iPad_button-ON.png');"></div>
     </div>
 
     <!-- Kontejner pro QR kód v levém horním rohu -->
