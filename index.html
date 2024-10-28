@@ -33,7 +33,7 @@
             background-size: cover; /* Pokryje celé tlačítko */
             background-repeat: no-repeat; /* Zabrání opakování obrázku */
             background-position: center; /* Obrázek je zarovnán do středu tlačítka */
-            transition: opacity 0.3s ease; /* Přechod opacity pro crossfade efekt */
+            transition: opacity var(--fade-duration, 0.3s) ease; /* Přechod opacity pro crossfade efekt s proměnnou rychlostí */
             position: absolute; /* Pozice absolutní pro překrývání */
         }
 
@@ -51,7 +51,6 @@
             height: 100px;
             background-color: white;
             padding: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
     </style>
@@ -71,6 +70,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
+        // Nastavujeme rychlost crossfade přechodu
+        document.documentElement.style.setProperty('--fade-duration', '0.5s'); // Nastavte na požadovanou hodnotu
+
         // Inicializace QR kódu s odkazem
         new QRCode(document.getElementById("qrcode"), {
             text: "https://quixevent.github.io/StreamWeb/",
