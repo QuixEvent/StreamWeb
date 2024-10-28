@@ -23,8 +23,9 @@
             width: 150px;
             height: 150px;
             background-image: url('assets/iPad_button-OFF.png'); /* Výchozí obrázek pro tlačítko (OFF stav) */
-            background-size: cover;
-            background-position: center;
+            background-size: contain; /* Přizpůsobí velikost obrázku tlačítku */
+            background-repeat: no-repeat; /* Zabrání opakování obrázku */
+            background-position: center; /* Obrázek je zarovnán do středu tlačítka */
             border-radius: 50%;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Jemný stín, aby bylo tlačítko vidět */
             transition: transform 0.3s ease;
