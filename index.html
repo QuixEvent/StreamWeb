@@ -12,7 +12,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #40e0d0; /* Tyrkysová barva pro celé pozadí */
             overflow: hidden;
             font-family: Arial, sans-serif;
             position: relative;
@@ -22,15 +22,11 @@
         .swipe-button {
             width: 150px;
             height: 150px;
-            background-color: #3498db;
+            background-image: url('path/to/image1.png'); /* Obrázek pro výchozí stav */
+            background-size: cover;
+            background-position: center;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2em;
-            transition: background-color 0.5s ease, transform 0.3s ease;
-            user-select: none;
+            transition: transform 0.3s ease;
             cursor: pointer;
         }
 
@@ -41,7 +37,7 @@
             left: 10px;
             width: 100px;
             height: 100px;
-            background-color: #40e0d0; /* Tyrkysová barva pozadí */
+            background-color: white;
             padding: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -51,7 +47,7 @@
 <body>
 
     <!-- Tlačítko uprostřed stránky -->
-    <div class="swipe-button" id="swipeButton">Swipe mě</div>
+    <div class="swipe-button" id="swipeButton"></div>
 
     <!-- Kontejner pro QR kód v levém horním rohu -->
     <div class="qr-code" id="qrcode"></div>
@@ -85,13 +81,13 @@
 
         swipeButton.addEventListener('touchend', () => {
             if (startY > endY) {
-                // Swipe nahoru - posun nahoru a změna na hnědou
+                // Swipe nahoru - posun nahoru a změna obrázku na obrázek 1
                 swipeButton.style.transform = `translateY(-${swipeDistance}px)`;
-                swipeButton.style.backgroundColor = '#8B4513';
+                swipeButton.style.backgroundImage = "url('path/to/image1.png')";
             } else if (startY < endY) {
-                // Swipe dolů - posun dolů a změna na žlutou
+                // Swipe dolů - posun dolů a změna obrázku na obrázek 2
                 swipeButton.style.transform = `translateY(${swipeDistance}px)`;
-                swipeButton.style.backgroundColor = '#FFD700';
+                swipeButton.style.backgroundImage = "url('path/to/image2.png')";
             }
 
             // Vrácení do původní pozice po animaci
