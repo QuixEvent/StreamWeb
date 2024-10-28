@@ -22,7 +22,7 @@
         .swipe-button {
             width: 150px;
             height: 150px;
-            background-image: url('assets/iPad_button-OFF.png'); /* Výchozí obrázek */
+            background-image: url('assets/iPad_button-OFF.png'); /* Výchozí obrázek pro tlačítko (OFF stav) */
             background-size: cover;
             background-position: center;
             border-radius: 50%;
@@ -82,13 +82,13 @@
 
         swipeButton.addEventListener('touchend', () => {
             if (startY > endY) {
-                // Swipe nahoru - posun nahoru a změna obrázku na obrázek 1
+                // Swipe nahoru - posun nahoru a změna na obrázek "ON"
                 swipeButton.style.transform = `translateY(-${swipeDistance}px)`;
-                swipeButton.style.backgroundImage = "url('https://github.com/QuixEvent/StreamWeb/blob/0693af9a2c4abc6310b5e7cc441cb907dc138ebd/assets/iPad_button-ON.png')";
+                swipeButton.style.backgroundImage = "url('assets/iPad_button-ON.png')";
             } else if (startY < endY) {
-                // Swipe dolů - posun dolů a změna obrázku na obrázek 2
+                // Swipe dolů - posun dolů a změna na obrázek "OFF"
                 swipeButton.style.transform = `translateY(${swipeDistance}px)`;
-                swipeButton.style.backgroundImage = "url('path/to/image2.png')";
+                swipeButton.style.backgroundImage = "url('assets/iPad_button-OFF.png')";
             }
 
             // Vrácení do původní pozice po animaci
