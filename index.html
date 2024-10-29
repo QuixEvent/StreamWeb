@@ -27,8 +27,8 @@
             background-repeat: no-repeat; /* Zabrání opakování obrázku */
             background-position: center; /* Obrázek je zarovnán do středu tlačítka */
             border-radius: 50%;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Jemný stín, aby bylo tlačítko vidět */
-            transition: transform 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0); /* Jemný stín, aby bylo tlačítko vidět */
+            transition: transform 0.6s ease;
             cursor: pointer;
         }
 
@@ -70,7 +70,7 @@
         // Proměnné pro detekci swipu
         let startY = 0;
         let endY = 0;
-        const swipeDistance = 75;  // Polovina velikosti tlačítka (150px/2)
+        const swipeDistance = 50;  // Polovina velikosti tlačítka (150px/2)
 
         // Události pro dotykové zařízení
         swipeButton.addEventListener('touchstart', (event) => {
