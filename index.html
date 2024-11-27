@@ -1,195 +1,44 @@
 <!DOCTYPE html>
 <html lang="cs">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IQOS</title>
+    <title>Testovací stránka QUIX EVENT</title>
     <style>
-        /* Basic styles for the page */
-        body,
-        html {
+        body {
             margin: 0;
-            background-color: #40e0d0;
-            background-image: url('assets/iPad_background.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            background-size: 1620px 2160px;
-            overflow: hidden;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
             font-family: Arial, sans-serif;
-            height: 100%;
-            /* Ensure the entire viewport is filled */
-        }
-
-        .button-wrapper {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
             height: 100vh;
         }
-
-        /* Swipe button styling with layered images */
-        .swipe-button {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            cursor: pointer;
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .gallery-container {
+            width: 90%;
+            max-width: 800px;
             overflow: hidden;
-            opacity: 0.5;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-
-            /* Disable visual feedback on Chrome */
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            position: relative;
         }
-
-        /* "OFF" and "ON" state images */
-        .swipe-button-off,
-        .swipe-button-on {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            transition: opacity 0.3s ease;
-            /* Smooth transition for opacity */
-        }
-
-        .swipe-button-off {
-            background-image: url('assets/iPad_button-OFF_2.png');
-            opacity: 1;
-            /* Default state is "OFF" */
-        }
-
-        .swipe-button-on {
-            background-image: url('assets/iPad_button-ON_2.png');
-            opacity: 0;
-            /* Hidden initially */
+        .gallery-container .elfsight-app-b4d08081-3aa2-4be8-a46d-cec465e8f3d6 {
+            filter: brightness(0.8);
         }
     </style>
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
 </head>
-
 <body>
-
-    <div class="button-wrapper">
-        <!-- Button with layered images for smooth transitions -->
-        <div class="swipe-button" id="swipeButton">
-            <div class="swipe-button-off" id="buttonOff"></div>
-            <div class="swipe-button-on" id="buttonOn"></div>
-        </div>
+    <h1>Testovací stránka QUIX EVENT</h1>
+    <div class="gallery-container">
+        <div class="elfsight-app-b4d08081-3aa2-4be8-a46d-cec465e8f3d6" data-elfsight-app-lazy></div>
     </div>
-
-    <audio id="audioB" src="assets/IQOS-ShopMix-15dB.mp3" loop></audio>
-
-    <script>
-        const swipeButton = document.getElementById('swipeButton');
-        const buttonOff = document.getElementById('buttonOff');
-        const buttonOn = document.getElementById('buttonOn');
-        const audioB = document.getElementById('audioB');
-
-        const backgroundTrack = "assets/IQOS-ShopMix-15dB.mp3";
-        const playlistA = [
-            "assets/IQOS-BlackMoon.mp3",
-            "assets/IQOS-Everybody.mp3",
-            "assets/IQOS-MangoFizz.mp3",
-            "assets/IQOS-Moodswing.mp3",
-            "assets/IQOS-NeverHeard.mp3",
-            "assets/IQOS-RallyRush.mp3"
-        ];
-
-        let currentTrackIndex = 0;   // Index of the current track in playlist A
-        let audioPlayer = new Audio(); // Single audio player instance
-        let isPlayingA = false;       // Initial state of audio A
-        let isPlayingB = false;       // Initial state of audio B   
-        let savedTimeB = 0;           // Saved time for track B playback
-        let isStandby = true;         // Initial state of the device
-
-        // Variables for swipe detection
-        let startY = 0;
-        let endY = 0;
-        const swipeThreshold = 50; // Minimum swipe length required
-
-
-        // Event listener for button click
-        swipeButton.addEventListener('click', (event) => {
-            isStandby = false; // Device is no longer in standby mode
-            swipeButton.style.opacity = 1; // Make the button fully visible
-        });
-
-        // Touch events for swipe detection, limited to the button element
-        swipeButton.addEventListener('touchstart', (event) => {
-            startY = event.touches[0].clientY;
-            endY = startY;
-        });
-
-        swipeButton.addEventListener('touchmove', (event) => {
-            endY = event.touches[0].clientY;
-        });
-
-        swipeButton.addEventListener('touchend', () => {
-            const swipeLength = Math.abs(startY - endY);
-
-            // Only proceed if the swipe length is greater than the threshold
-            if (swipeLength >= swipeThreshold) {
-
-                if (startY > endY) {
-                    // Swipe up - move up, fade to "ON" image, and go fullscreen
-                    swipeButton.style.transform = `translateY(-50px)`; // Move slightly up for feedback
-                    buttonOn.style.opacity = 1;
-
-                    if (!isPlayingA && !isStandby) {
-
-                        savedTimeB = audioPlayer.currentTime; // Save current time of track B
-                        audioPlayer.pause();                  // Pause track B
-                        isPlayingB = false;
-
-                        // Load and play current track from Playlist A
-                        audioPlayer.src = playlistA[currentTrackIndex];
-                        audioPlayer.volume = 1.0; // Set volume to 100% for track A
-                        audioPlayer.loop = true;  // Enable looping for track A
-                        audioPlayer.play();       // Play the current track in playlist A
-                        isPlayingA = true;
-                    }
-
-                } else if (startY < endY) {
-
-                    // Swipe down - move down, fade to "OFF" image
-                    swipeButton.style.transform = `translateY(50px)`; // Move slightly down for feedback
-                    buttonOn.style.opacity = 0;
-
-                    if (!isPlayingB && !isStandby) {
-                        isPlayingA = false;
-
-                        // Move to the next track in Playlist A for the next ON state
-                        currentTrackIndex = (currentTrackIndex + 1) % playlistA.length;
-
-                        // Resume playing track B from the saved position
-                        audioPlayer.src = backgroundTrack;
-                        audioPlayer.currentTime = savedTimeB; // Resume from saved time
-                        audioPlayer.volume = 0.1; // Set volume to 15% for track B
-                        audioPlayer.loop = true;  // Loop track B
-                        audioPlayer.play();       // Play track B
-                        isPlayingB = true;
-                    }
-
-                }
-
-                // Return to original position after animation
-                setTimeout(() => {
-                    swipeButton.style.transform = 'translateY(0)';
-                }, 300); // Return after 300ms
-            }
-        });
-    </script>
-
 </body>
-
 </html>
